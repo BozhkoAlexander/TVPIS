@@ -30,6 +30,7 @@ namespace TVPIS
 
         private void runButton_Click(object sender, EventArgs e)
         {
+            resultsTextBox.Text = "";
             MultiThread.InitSemaphore(0, Convert.ToInt32(threadCountTextBox.Text));
             MultiThread.CreateThreads(MultiThread.taskCount);
             List<int> res = MultiThread.ReleaseSemaphore(MultiThread.taskCount);
