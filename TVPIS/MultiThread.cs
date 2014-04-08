@@ -2,40 +2,34 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 
 namespace TVPIS
 {
-    class MultiThread
+    public class MultiThread
     {
-        public static Semaphore s;
-        public static List<int> results;
+        Semaphore s;
+        Thread[] threads;
+        List<long> results;
 
-        static Random rand = new Random();
-        public static int taskCount = 0;
+        Random rand = new Random();
+        int taskCount = 0;
+        int dimension = 0;
 
-        public static void InitSemaphore(int start, int max)
+        public MultiThread(int threadCount, int _dimension)
         {
-            s = new Semaphore(start, max);
-            results = new List<int>();
-            taskCount = max;
+            taskCount = threadCount;
+            s = new Semaphore(0, threadCount);
+            results = new List<long>();
+            taskCount = threadCount;
+            dimension = _dimension;
         }
 
-        public static Thread[] CreateThreads(int quantity)
+        public List<long> ReleaseSemaphore()
         {
-            Thread[] threads = new Thread[quantity];
-            for (int i = 0; i < quantity; i++)
-            {
-                threads[i] = new Thread(Run);
-                threads[i].Start(i);
-            }
-            return threads;
-        }
-
-        public static List<int> ReleaseSemaphore(int n)
-        {
-            s.Release(n);
+            s.Release(taskCount);
             while (true)
             {
                 if (results.Count == taskCount)
@@ -46,12 +40,25 @@ namespace TVPIS
             return results;
         }
 
-        public static void Run(object obj)
+        public void Run(object obj)
         {
             s.WaitOne();
-            int r = rand.Next(20);
-            results.Add(r);
+            Stopwatch stopWatch = new Stopwatch();
+            stopWatch.Start();
+            int[,] res =  Matrix.CulcMatrix(dimension);
+            stopWatch.Stop();
+            results.Add(stopWatch.ElapsedMilliseconds);
             s.Release();
+        }
+
+        internal void CreateThreads()
+        {
+            threads = new Thread[taskCount];
+            for (int i = 0; i < taskCount; i++)
+            {
+                threads[i] = new Thread(Run);
+                threads[i].Start(i);
+            }
         }
     }
 }
