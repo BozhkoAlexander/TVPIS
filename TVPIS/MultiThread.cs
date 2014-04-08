@@ -13,7 +13,7 @@ namespace TVPIS
         public static List<int> results;
 
         static Random rand = new Random();
-        static int taskCount;
+        public static int taskCount = 0;
 
         public static void InitSemaphore(int start, int max)
         {
