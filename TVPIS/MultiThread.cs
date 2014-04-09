@@ -45,9 +45,10 @@ namespace TVPIS
         public void Run(object obj)
         {
             s.WaitOne();
+            DateTime date = DateTime.Now;
             lock (locker)
             {
-                startTimes.Add(DateTime.Now);
+                startTimes.Add(date);
             }
             Stopwatch stopWatch = new Stopwatch();
             stopWatch.Start();

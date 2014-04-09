@@ -28,13 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title1 = new System.Windows.Forms.DataVisualization.Charting.Title();
             this.runButton = new System.Windows.Forms.Button();
-            this.resultsTextBox = new System.Windows.Forms.RichTextBox();
+            this.Log = new System.Windows.Forms.RichTextBox();
             this.threadCountTextBox = new System.Windows.Forms.TextBox();
             this.MatrixDimensionTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.TimesTextBox = new System.Windows.Forms.RichTextBox();
+            this.durationsChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            ((System.ComponentModel.ISupportInitialize)(this.durationsChart)).BeginInit();
             this.SuspendLayout();
             // 
             // runButton
@@ -48,13 +53,14 @@
             this.runButton.UseVisualStyleBackColor = true;
             this.runButton.Click += new System.EventHandler(this.runButton_Click);
             // 
-            // resultsTextBox
+            // Log
             // 
-            this.resultsTextBox.Location = new System.Drawing.Point(12, 338);
-            this.resultsTextBox.Name = "resultsTextBox";
-            this.resultsTextBox.Size = new System.Drawing.Size(555, 88);
-            this.resultsTextBox.TabIndex = 1;
-            this.resultsTextBox.Text = "";
+            this.Log.Location = new System.Drawing.Point(12, 338);
+            this.Log.Name = "Log";
+            this.Log.ReadOnly = true;
+            this.Log.Size = new System.Drawing.Size(555, 88);
+            this.Log.TabIndex = 1;
+            this.Log.Text = "";
             // 
             // threadCountTextBox
             // 
@@ -101,20 +107,38 @@
             this.TimesTextBox.TabIndex = 6;
             this.TimesTextBox.Text = "";
             // 
+            // durationsChart
+            // 
+            chartArea1.Name = "ChartArea1";
+            this.durationsChart.ChartAreas.Add(chartArea1);
+            this.durationsChart.Location = new System.Drawing.Point(234, 12);
+            this.durationsChart.Name = "durationsChart";
+            series1.ChartArea = "ChartArea1";
+            series1.Name = "Threads";
+            this.durationsChart.Series.Add(series1);
+            this.durationsChart.Size = new System.Drawing.Size(333, 320);
+            this.durationsChart.TabIndex = 7;
+            this.durationsChart.Text = "График продолжительностей";
+            title1.Name = "diagramName";
+            title1.Text = "Диаграмма продолжительностей";
+            this.durationsChart.Titles.Add(title1);
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(579, 438);
+            this.Controls.Add(this.durationsChart);
             this.Controls.Add(this.TimesTextBox);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.MatrixDimensionTextBox);
             this.Controls.Add(this.threadCountTextBox);
-            this.Controls.Add(this.resultsTextBox);
+            this.Controls.Add(this.Log);
             this.Controls.Add(this.runButton);
             this.Name = "MainWindow";
             this.Text = "Лабораторная работа 1";
+            ((System.ComponentModel.ISupportInitialize)(this.durationsChart)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -123,12 +147,13 @@
         #endregion
 
         private System.Windows.Forms.Button runButton;
-        private System.Windows.Forms.RichTextBox resultsTextBox;
+        private System.Windows.Forms.RichTextBox Log;
         private System.Windows.Forms.TextBox threadCountTextBox;
         private System.Windows.Forms.TextBox MatrixDimensionTextBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.RichTextBox TimesTextBox;
+        private System.Windows.Forms.DataVisualization.Charting.Chart durationsChart;
     }
 }
 

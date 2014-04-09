@@ -30,16 +30,12 @@ namespace TVPIS
 
         private void runButton_Click(object sender, EventArgs e)
         {
-            resultsTextBox.Text = "";
+            LogString("Создается " + threadCountTextBox.Text + " потоков для вычисления матриц размерностью " + MatrixDimensionTextBox.Text + "x" + MatrixDimensionTextBox.Text + "...", true);
             MultiThread multiThread = new MultiThread(Convert.ToInt32(threadCountTextBox.Text), Convert.ToInt32(MatrixDimensionTextBox.Text));
             multiThread.CreateThreads();
             List<long> res = multiThread.ReleaseSemaphore();
             SetStartTimesTextBox(multiThread.startTimes);
-            foreach (long item in res)
-            {
-                resultsTextBox.Text += item + ", ";
-            }
-            resultsTextBox.Text += "конец.";
+            ShowGraphic(res);
         }
 
         private void SetStartTimesTextBox(List<DateTime> dates)
@@ -51,6 +47,27 @@ namespace TVPIS
                 TimesTextBox.Text += "Поток " + i + " стартовал в " + item.Hour + ":" + item.Minute + ":" + item.Second + "." + item.Millisecond + "\n";
                 i++;
             }
+        }
+
+        private void ShowGraphic(List<long> durations)
+        {
+            int i = 1;
+            durationsChart.Series[0].Points.Clear();
+            foreach (long item in durations)
+            {
+                LogString("Время выполнения потока "+i+" - "+item+" миллисекунд", false);
+                durationsChart.Series[0].Points.Add((double)item);
+                i++;
+            }
+        }
+
+        private void LogString(string str, bool clear)
+        {
+            if (clear)
+                Log.Text = "";
+            Log.Text += str + "\n";
+            Log.SelectionStart = Log.Text.Length;
+            Log.ScrollToCaret();
         }
     }
 }
