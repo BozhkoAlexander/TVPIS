@@ -10,11 +10,12 @@ namespace TVPIS
 {
     public class MultiThread
     {
+        static object locker = new object();
         Semaphore s;
         Thread[] threads;
         List<long> results;
+        public List<DateTime> startTimes;
 
-        Random rand = new Random();
         int taskCount = 0;
         int dimension = 0;
 
@@ -23,6 +24,7 @@ namespace TVPIS
             taskCount = threadCount;
             s = new Semaphore(0, threadCount);
             results = new List<long>();
+            startTimes = new List<DateTime>();
             taskCount = threadCount;
             dimension = _dimension;
         }
@@ -43,6 +45,10 @@ namespace TVPIS
         public void Run(object obj)
         {
             s.WaitOne();
+            lock (locker)
+            {
+                startTimes.Add(DateTime.Now);
+            }
             Stopwatch stopWatch = new Stopwatch();
             stopWatch.Start();
             int[,] res =  Matrix.CulcMatrix(dimension);

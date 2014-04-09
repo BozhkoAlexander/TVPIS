@@ -34,6 +34,7 @@
             this.MatrixDimensionTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.TimesTextBox = new System.Windows.Forms.RichTextBox();
             this.SuspendLayout();
             // 
             // runButton
@@ -91,11 +92,21 @@
             this.label2.TabIndex = 5;
             this.label2.Text = "Размерность матриц";
             // 
+            // TimesTextBox
+            // 
+            this.TimesTextBox.Location = new System.Drawing.Point(15, 95);
+            this.TimesTextBox.Name = "TimesTextBox";
+            this.TimesTextBox.ReadOnly = true;
+            this.TimesTextBox.Size = new System.Drawing.Size(213, 237);
+            this.TimesTextBox.TabIndex = 6;
+            this.TimesTextBox.Text = "";
+            // 
             // MainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(579, 438);
+            this.Controls.Add(this.TimesTextBox);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.MatrixDimensionTextBox);
@@ -117,6 +128,7 @@
         private System.Windows.Forms.TextBox MatrixDimensionTextBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.RichTextBox TimesTextBox;
     }
 }
 

@@ -34,11 +34,23 @@ namespace TVPIS
             MultiThread multiThread = new MultiThread(Convert.ToInt32(threadCountTextBox.Text), Convert.ToInt32(MatrixDimensionTextBox.Text));
             multiThread.CreateThreads();
             List<long> res = multiThread.ReleaseSemaphore();
+            SetStartTimesTextBox(multiThread.startTimes);
             foreach (long item in res)
             {
                 resultsTextBox.Text += item + ", ";
             }
             resultsTextBox.Text += "конец.";
+        }
+
+        private void SetStartTimesTextBox(List<DateTime> dates)
+        {
+            TimesTextBox.Text = "";
+            int i = 0;
+            foreach (DateTime item in dates)
+            {
+                TimesTextBox.Text += "Поток " + i + " стартовал в " + item.Hour + ":" + item.Minute + ":" + item.Second + "." + item.Millisecond + "\n";
+                i++;
+            }
         }
     }
 }
